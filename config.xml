@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>codecamp</name>
+	<displayName><![CDATA[Segmentation Retargeting Clients]]></displayName>
+	<version><![CDATA[0.0.0]]></version>
+	<description><![CDATA[jojo c&#039;est de la merde]]></description>
+	<author><![CDATA[Hugo BOISSIERE]]></author>
+	<tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
