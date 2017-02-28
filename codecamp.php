@@ -36,7 +36,7 @@ class Codecamp extends Module
     {
         $this->name = 'codecamp';
         $this->tab = 'administration';
-        $this->version = '0.0.0';
+        $this->version = '0.0.1';
         $this->author = 'Hugo BOISSIERE';
         $this->need_instance = 0;
 
@@ -48,7 +48,7 @@ class Codecamp extends Module
         parent::__construct();
 
         $this->displayName = $this->l('Segmentation Retargeting Clients');
-        $this->description = $this->l('jojo c\'est de la merde');
+        $this->description = $this->l('Outil permettant de récupérer les informations des clients en fonction de différents paramètres.');
 
         $this->confirmUninstall = $this->l('');
 

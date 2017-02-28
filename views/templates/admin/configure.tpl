@@ -26,13 +26,13 @@
 <div class="panel">
 	<h3><i class="icon icon-credit-card"></i> {l s='Segmentation Retargeting Clients' mod='codecamp'}</h3>
 	<p>
-		<strong>{l s='Here is my new generic module!' mod='codecamp'}</strong><br />
-		{l s='Thanks to PrestaShop, now I have a great module.' mod='codecamp'}<br />
-		{l s='I can configure it using the following configuration form.' mod='codecamp'}
+		<strong>{l s='ça avance super bien dis donc' mod='codecamp'}</strong><br />
+		{l s='Thanks to PrestaShop, now I have a code camp de merde.' mod='codecamp'}<br />
+		{l s='I can configure it using the following configuration form sauf que j\'ai pas envie de bosser.' mod='codecamp'}
 	</p>
 	<br />
 	<p>
-		{l s='This module will boost your sales!' mod='codecamp'}
+		{l s='This module will servir à rien!' mod='codecamp'}
 	</p>
 </div>
 
@@ -41,8 +41,8 @@
 	<p>
 		&raquo; {l s='You can get a PDF documentation to configure this module' mod='codecamp'} :
 		<ul>
-			<li><a href="#" target="_blank">{l s='English' mod='codecamp'}</a></li>
-			<li><a href="#" target="_blank">{l s='French' mod='codecamp'}</a></li>
+			<li><a href="#" target="http::/www.google.com">{l s='English' mod='codecamp'}</a></li>
+			<li><a href="#" target="http::/www.youtube.com">{l s='French' mod='codecamp'}</a></li>
 		</ul>
 	</p>
 </div>
