@@ -25,3 +25,20 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
+
+/**
+ * js for select with checkboxes
+ */
+
+var expanded = false;
+
+function showCheckboxes() {
+	var checkboxes = document.getElementById("checkboxes");
+	if (!expanded) {
+		checkboxes.style.display = "block";
+		expanded = true;
+	} else {
+		checkboxes.style.display = "none";
+		expanded = false;
+	}
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>codecamp</name>
+	<displayName><![CDATA[Segmentation Retargeting Clients]]></displayName>
+	<version><![CDATA[0.0.1]]></version>
+	<description><![CDATA[Outil permettant de r&eacute;cup&eacute;rer les informations des clients en fonction de diff&eacute;rents param&egrave;tres.]]></description>
+	<author><![CDATA[Hugo BOISSIERE]]></author>
+	<tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

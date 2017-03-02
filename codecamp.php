@@ -89,6 +89,84 @@ class Codecamp extends Module
 
         $this->context->smarty->assign('module_dir', $this->_path);
 
+        global $cookie;
+
+        $db = Db::getInstance(_PS_USE_SQL_SLAVE_);
+
+        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender';
+
+        $from = 'FROM ' . _DB_PREFIX_ . 'address as a
+                LEFT JOIN ' . _DB_PREFIX_ . 'customer as c
+                    ON a.id_customer = c.id_customer' . (isset($_POST["NEWSLETTER_MODE"]) ? ' AND c.newsletter = ' . (int)$_POST["NEWSLETTER_MODE"] : '') . (isset($_POST["OPT_MODE"]) ? ' AND c.optin = ' . (int)$_POST["OPT_MODE"] : '') . '
+                LEFT JOIN ' . _DB_PREFIX_ . 'country_lang as p
+                    ON a.id_country = p.id_country AND p.id_lang = ' . (int)$cookie->id_lang . '
+                LEFT JOIN ' . _DB_PREFIX_ . 'lang as l
+                    ON l.id_lang = c.id_lang
+                LEFT JOIN ' . _DB_PREFIX_ . 'currency_shop as cs
+                    ON cs.id_shop = c.id_shop
+                LEFT JOIN ' . _DB_PREFIX_ . 'currency as d
+                    ON d.id_currency = cs.id_currency
+                LEFT JOIN ' . _DB_PREFIX_ . 'gender_lang as g
+                    ON g.id_gender = c.id_gender AND g.id_lang = ' . (int)$cookie->id_lang;
+
+        if (isset($_POST["NEWSLETTER_MODE"]))
+        {
+            $select .= ', c.newsletter';
+        }
+        if (isset($_POST["OPT_MODE"]) && $_POST["OPT_MODE"] == 1)
+        {
+            $select .= ', c.optin';
+        }
+
+        if ($results = $db->ExecuteS($select . ' ' . $from))
+        {
+            $i = 0;
+            foreach ($results as $row)
+            {
+                $arr[$i] = $row;
+                $i++;
+            }
+            if ($i > 0)
+            {
+                $i = 0;
+                $base = array("firstname", "lastname", "email", "phone", "gender", "address1", "address2", "postcode", "city", "country", "lang", "currency");
+                foreach ($arr[0] as $key => $cell)
+                {
+                    $keys[$i]["key"] = $key;
+                    $keys[$i]["optionnal"] = !in_array($key, $base);
+                    $i++;
+                }
+            }
+        }
+
+        $sql_grp = 'SELECT name FROM ' . _DB_PREFIX_ . 'group_lang WHERE id_lang = ' . (int)$cookie->id_lang . ' ORDER BY name';
+        if (!($grp = $db->ExecuteS($sql_grp)))
+            $grp = "Error";
+
+        $sql_lang = 'SELECT name FROM ' . _DB_PREFIX_ . 'lang ORDER BY name';
+        if (!($lang = $db->ExecuteS($sql_lang)))
+            $lang = "Error";
+
+        $sql_curr = 'SELECT name FROM ' . _DB_PREFIX_ . 'currency ORDER BY name';
+        if (!($curr = $db->ExecuteS($sql_curr)))
+            $curr = "Error";
+
+        $sql_country = 'SELECT name FROM ' . _DB_PREFIX_ . 'country_lang WHERE id_lang = ' . (int)$cookie->id_lang . ' ORDER BY name';
+        if (!($country = $db->ExecuteS($sql_country)))
+            $country = "Error";
+
+        $sql_gender = 'SELECT name FROM ' . _DB_PREFIX_ . 'gender_lang WHERE id_lang = ' . (int)$cookie->id_lang . ' ORDER BY name';
+        if (!($gender = $db->ExecuteS($sql_gender)))
+            $gender = "Error";
+
+        $this->context->smarty->assign('results', $arr);
+        $this->context->smarty->assign('keys', $keys);
+        $this->context->smarty->assign('groups', $grp);
+        $this->context->smarty->assign('lang', $lang);
+        $this->context->smarty->assign('curr', $curr);
+        $this->context->smarty->assign('countries', $country);
+        $this->context->smarty->assign('gender', $gender);
+
         $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 
         return $output.$this->renderForm();
