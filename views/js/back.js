@@ -25,3 +25,40 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
+
+$(document).ready(function() {
+	$('#group-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#language-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#money-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#country-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#gender-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+});
+$(window).load(function(){
+	for (i = 0;document.querySelectorAll(".active > input:nth-child(1)")[i];i++) {
+		document.querySelectorAll(".active > input:nth-child(1)")[i].addEventListener("click",function () {
+			var c = this.parentElement.parentElement.parentElement.querySelectorAll("input,button,select");
+			for (b = 1;c[b];b++) {
+				if (!c[b].hasAttribute("disabled"))
+					c[b].setAttribute("disabled","disabled");
+				else
+					c[b].removeAttribute("disabled");
+			}
+		});
+		document.querySelectorAll(".active > input:nth-child(1)")[i].click();
+	}
+});
