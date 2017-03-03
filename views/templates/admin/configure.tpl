@@ -200,7 +200,9 @@
 				<button type="submit" value="1" id="exportcsv" name="exportcsv" class="btn btn-default">
 					<i class="icon icon-arrow-down"></i> Export in CSV
 				</button>
+				<a class="btn btn-default" id="download" href="../modules/codecamp/e.txt" download="e.txt"><i class="icon icon-arrow-down"></i> TEST DOWNLOAD</a>
 			</div>
+
 		</form>
 		<div class="panel">
 			{$sql}
