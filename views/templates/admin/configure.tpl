@@ -26,216 +26,216 @@
 <link rel="stylesheet" type="text/css" href="{$module_dir}/views/css/back.css">
 <link rel="stylesheet" type="text/css" href="{$module_dir}/views/css/bootstrap-multiselect.css">
 <script type="text/javascript" src="{$module_dir}/views/js/bootstrap-multiselect.js"></script>
-<script type="text/javascript" src="{$module_dir}/views/js/back.js"></script>
 
 <div class="panel">
 	<h3><i class="icon icon-cogs"></i> Settings</h3>
 	<form method="POST" action="" id="csvform">
-		<table>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Newsletter</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="NEWSLETTER_MODE" id="NEWSLETTER_MODE_on" value="1" type="radio">
-						<label for="NEWSLETTER_MODE_on">Yes</label>
-						<input name="NEWSLETTER_MODE" id="NEWSLETTER_MODE_off" value="" checked="checked" type="radio">
-						<label for="NEWSLETTER_MODE_off">No</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Opt-in</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="OPT_MODE" id="OPT_MODE_on" value="1" type="radio">
-						<label for="OPT_MODE_on">Yes</label>
-						<input name="OPT_MODE" id="OPT_MODE_off" value="" checked="checked" type="radio">
-						<label for="OPT_MODE_off">No</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Groupe Client</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="GRPCLIENT_MODE" id="GRPCLIENT_MODE_on" value="1" type="radio">
-						<label for="GRPCLIENT_MODE_on">Inclure</label>
-						<input name="GRPCLIENT_MODE" id="GRPCLIENT_MODE_off" value="" checked="checked" type="radio">
-						<label for="GRPCLIENT_MODE_off">Exclure</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-				<td>
-					<div>
-						<select multiple="multiple" name="group[]" id="group-select">
-							{foreach from=$groups item=group}
-								<option value="{$group.name}">{$group.name}</option>
-							{/foreach}
-						</select>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Langue</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="LANGUE_MODE" id="LANGUE_MODE_on" value="1" type="radio">
-						<label for="LANGUE_MODE_on">Inclure</label>
-						<input name="LANGUE_MODE" id="LANGUE_MODE_off" value="" checked="checked" type="radio">
-						<label for="LANGUE_MODE_off">Exclure</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-				<td>
-					<div>
-						<select multiple="multiple" name="lang[]" id="language-select">
-							{foreach from=$lang item=l}
-								<option value="{$l.name}">{$l.name}</option>
-							{/foreach}
-						</select>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Devise</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="DEVISE_MODE" id="DEVISE_MODE_on" value="1" type="radio">
-						<label for="DEVISE_MODE_on">Inclure</label>
-						<input name="DEVISE_MODE" id="DEVISE_MODE_off" value="" checked="checked" type="radio">
-						<label for="DEVISE_MODE_off">Exclure</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-				<td>
-					<div>
-						<select multiple="multiple" name="currency[]" id="money-select">
-							{foreach from=$curr item=c}
-								<option value="{$c.name}">{$c.name}</option>
-							{/foreach}
-						</select>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Pays De Livraison</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="PDL_MODE" id="PDL_MODE_on" value="1" type="radio">
-						<label for="PDL_MODE_on">Inclure</label>
-						<input name="PDL_MODE" id="PDL_MODE_off" value="" checked="checked" type="radio">
-						<label for="PDL_MODE_off">Exclure</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-				<td>
-					<div>
-						<select multiple="multiple" name="country[]" id="country-select">
-							{foreach from=$countries item=country}
-								<option value="{$country.name}">{$country.name}</option>
-							{/foreach}
-						</select>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Age</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="AGE_MODE" id="AGE_MODE_on" value="1" type="radio">
-						<label for="AGE_MODE_on">Inclure</label>
-						<input name="AGE_MODE" id="AGE_MODE_off" value="" checked="checked" type="radio">
-						<label for="AGE_MODE_off">Exclure</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-				<td>
-					<div>
+		<div class="panel">
+			<h3>Profil</h3>
+			<table>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Newsletter</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="NEWSLETTER_MODE" id="NEWSLETTER_MODE_on" value="1" type="radio">
+							<label for="NEWSLETTER_MODE_on">Yes</label>
+							<input name="NEWSLETTER_MODE" id="NEWSLETTER_MODE_off" value="" checked="checked" type="radio">
+							<label for="NEWSLETTER_MODE_off">No</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Opt-in</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="OPT_MODE" id="OPT_MODE_on" value="1" type="radio">
+							<label for="OPT_MODE_on">Yes</label>
+							<input name="OPT_MODE" id="OPT_MODE_off" value="" checked="checked" type="radio">
+							<label for="OPT_MODE_off">No</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Groupe Client</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="GRPCLIENT_MODE" id="GRPCLIENT_MODE_on" value="1" type="radio">
+							<label for="GRPCLIENT_MODE_on">Inclure</label>
+							<input name="GRPCLIENT_MODE" id="GRPCLIENT_MODE_off" value="" checked="checked" type="radio">
+							<label for="GRPCLIENT_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
 						<div>
-							<input type="date" name="date" class ="bday" placeholder="jj/mm/AAAA">
-							<input type="date" name="date" class ="bday" placeholder="jj/mm/AAAA">
+							<select multiple="multiple" name="group[]" id="group-select">
+								{foreach from=$groups item=group}
+									<option value="{$group.name}">{$group.name}</option>
+								{/foreach}
+							</select>
 						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="active"><input type="checkbox" checked></div>
-				</td>
-				<td>
-					<p>Sexe</p>
-				</td>
-				<td>
-					<span class="switch prestashop-switch fixed-width-lg">
-						<input name="SEXE_MODE" id="SEXE_MODE_on" value="1" type="radio">
-						<label for="SEXE_MODE_on">Inclure</label>
-						<input name="SEXE_MODE" id="SEXE_MODE_off" value="" checked="checked" type="radio">
-						<label for="SEXE_MODE_off">Exclure</label>
-						<a class="slide-button btn"></a>
-					</span>
-				</td>
-				<td>
-					<div>
-						<select multiple="multiple" name="gender[]" id="gender-select">
-							{foreach from=$gender item=g}
-								<option value="{$g.name}">{$g.name}</option>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Langue</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="LANGUE_MODE" id="LANGUE_MODE_on" value="1" type="radio">
+							<label for="LANGUE_MODE_on">Inclure</label>
+							<input name="LANGUE_MODE" id="LANGUE_MODE_off" value="" checked="checked" type="radio">
+							<label for="LANGUE_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
+						<div>
+							<select multiple="multiple" name="lang[]" id="language-select">
+								{foreach from=$lang item=l}
+									<option value="{$l.name}">{$l.name}</option>
+								{/foreach}
+							</select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Devise</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="DEVISE_MODE" id="DEVISE_MODE_on" value="1" type="radio">
+							<label for="DEVISE_MODE_on">Inclure</label>
+							<input name="DEVISE_MODE" id="DEVISE_MODE_off" value="" checked="checked" type="radio">
+							<label for="DEVISE_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
+						<div>
+							<select multiple="multiple" name="currency[]" id="money-select">
+								{foreach from=$curr item=c}
+									<option value="{$c.name}">{$c.name}</option>
+								{/foreach}
+							</select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Pays De Livraison</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="PDL_MODE" id="PDL_MODE_on" value="1" type="radio">
+							<label for="PDL_MODE_on">Inclure</label>
+							<input name="PDL_MODE" id="PDL_MODE_off" value="" checked="checked" type="radio">
+							<label for="PDL_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
+						<div>
+							<select multiple="multiple" name="country[]" id="country-select">
+								{foreach from=$countries item=country}
+									<option value="{$country.name}">{$country.name}</option>
+								{/foreach}
+							</select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Age</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="AGE_MODE" id="AGE_MODE_on" value="1" type="radio">
+							<label for="AGE_MODE_on">Inclure</label>
+							<input name="AGE_MODE" id="AGE_MODE_off" value="" checked="checked" type="radio">
+							<label for="AGE_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
+						<div>
+							<input type="number" name="age" class ="bday">
+							<input type="number" name="age" class ="bday">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Sexe</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="SEXE_MODE" id="SEXE_MODE_on" value="1" type="radio">
+							<label for="SEXE_MODE_on">Inclure</label>
+							<input name="SEXE_MODE" id="SEXE_MODE_off" value="" checked="checked" type="radio">
+							<label for="SEXE_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
+						<div>
+							<select multiple="multiple" name="gender[]" id="gender-select">
+								{foreach from=$gender item=g}
+									<option value="{$g.name}">{$g.name}</option>
 								{/foreach}
 							</select>
 						</div>
 					</td>
 				</tr>
 			</table>
-			<div class="panel-footer">
-				<button type="submit" value="1" id="exportcsv" name="exportcsv" class="btn btn-default">
-					<i class="icon icon-arrow-down"></i> Export in CSV
-				</button>
-				<a class="btn btn-default" id="download" href="../modules/codecamp/e.txt" download="e.txt"><i class="icon icon-arrow-down"></i> TEST DOWNLOAD</a>
-			</div>
-		</form>
+		</div>
 		<div class="panel">
-			{$sql}
+			<h3>Abandons de paniers</h3>
+		</div>
+		<div class="panel-footer">
+			<button type="submit" value="1" id="exportcsv" name="exportcsv" class="btn btn-default">
+				<i class="icon icon-arrow-down"></i> Export in CSV
+			</button>
 		</div>
 	</form>
-	<div class="panel">
-		{$sql}
-	</div>
+</div>
+
+<div class="panel">
+	<h3><i class="icon icon-code"></i> SQL request</h3>
+	{$sql}
 </div>
 
 <div class="panel">
