@@ -122,6 +122,13 @@ input:checked + .slider:before {
 }
 
 .active > input:nth-child(1) {
-	position: absolute;
+	position: relative;
+	margin: 0px;
 	left: 3px;
+}
+
+input[type="number"] {
+	border-radius: 3px;
+	border: 1px solid lightgrey;
+	margin-right: 3px;
 }

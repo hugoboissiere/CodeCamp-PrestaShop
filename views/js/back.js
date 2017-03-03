@@ -26,6 +26,23 @@
 * to avoid any conflicts with others containers.
 */
 
+function show() {
+	var a = document.querySelectorAll(".active > input:nth-child(1)");
+	for (i = 0;a[i];i++) {
+		console.log(i);
+		document.querySelectorAll(".active > input:nth-child(1)")[i].addEventListener("click",function () {
+			var c = this.parentElement.parentElement.parentElement.querySelectorAll("input,button,select");
+			for (b = 1;c[b];b++) {
+				if (!c[b].hasAttribute("disabled"))
+					c[b].setAttribute("disabled","disabled");
+				else
+					c[b].removeAttribute("disabled");
+			}
+		});
+		document.querySelectorAll(".active > input:nth-child(1)")[i].click();
+	}
+}
+
 $(document).ready(function() {
 	$('#group-select').multiselect({
 		maxHeight: 200,
@@ -48,17 +65,5 @@ $(document).ready(function() {
 		buttonWidth: '153px'
 	});
 });
-$(window).load(function(){
-	for (i = 0;document.querySelectorAll(".active > input:nth-child(1)")[i];i++) {
-		document.querySelectorAll(".active > input:nth-child(1)")[i].addEventListener("click",function () {
-			var c = this.parentElement.parentElement.parentElement.querySelectorAll("input,button,select");
-			for (b = 1;c[b];b++) {
-				if (!c[b].hasAttribute("disabled"))
-					c[b].setAttribute("disabled","disabled");
-				else
-					c[b].removeAttribute("disabled");
-			}
-		});
-		document.querySelectorAll(".active > input:nth-child(1)")[i].click();
-	}
-});
+
+$(window).load(function(){show();});
