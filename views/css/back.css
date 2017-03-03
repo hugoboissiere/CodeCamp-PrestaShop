@@ -92,3 +92,8 @@ input:checked + .slider:before {
 .agefield {
     width: 25px;
 }
+
+.active > input:nth-child(1) {
+  position: absolute;
+  left: 3px;
+}

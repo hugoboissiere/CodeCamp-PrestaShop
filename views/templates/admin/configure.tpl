@@ -32,7 +32,7 @@
 			<table>
 				<tr>
 					<td>
-						<p>Newsletter</p>
+						<div class="active"><input type="checkbox" checked><p>Newsletter</p></div>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 					<td>
-						<p>Opt-in</p>
+						<div class="active"><input type="checkbox" checked><p>Opt-in</p>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -55,12 +55,12 @@
 							<input name="OPT_MODE" id="OPT_MODE_off" value="" checked="checked" type="radio">
 							<label for="OPT_MODE_off">No</label>
 							<a class="slide-button btn"></a>
-						</span>
+						</span></div>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<p>Groupe Client</p>
+						<div class="active"><input type="checkbox" checked><p>Groupe Client</p>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -79,11 +79,11 @@
 								{/foreach}
 							</select>
 						</div>
-					</td>
+					</td></div>
 				</tr>
 				<tr>
 					<td>
-						<p>Langue</p>
+						<div class="active"><input type="checkbox" checked><p>Langue</p>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -102,11 +102,11 @@
 								{/foreach}
 							</select>
 						</div>
-					</td>
+					</td></div>
 				</tr>
 				<tr>
 					<td>
-						<p>Devise</p>
+						<div class="active"><input type="checkbox" checked><p>Devise</p>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -125,11 +125,11 @@
 								{/foreach}
 							</select>
 						</div>
-					</td>
+					</td></div>
 				</tr>
 				<tr>
 					<td>
-						<p>Pays De Livraison</p>
+						<div class="active"><input type="checkbox" checked><p>Pays De Livraison</p>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -148,11 +148,11 @@
 								{/foreach}
 							</select>
 						</div>
-					</td>
+					</td></div>
 				</tr>
 				<tr>
 					<td>
-						<p>Age</p>
+						<div class="active"><input type="checkbox" checked><p>Age</p>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -167,14 +167,14 @@
 						<div>
 							<div>
 								<input type="date" name="date" class ="bday" placeholder="jj/mm/AAAA">
-								<input type="date" name="date" class ="bday" placeholder="jj/mm/AAAA">	
+								<input type="date" name="date" class ="bday" placeholder="jj/mm/AAAA">
 							</div>
 						</div>
-					</td>
+					</td></div>
 				</tr>
 				<tr>
 					<td>
-						<p>Sexe</p>
+						<div class="active"><input type="checkbox" checked><p>Sexe</p>
 					</td>
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
@@ -193,7 +193,7 @@
 								{/foreach}
 							</select>
 						</div>
-					</td>
+					</td></div>
 				</tr>
 			</table>
 			<div class="panel-footer">
@@ -214,8 +214,8 @@
 		</p>
 	</div>
 
-	<script type="text/javascript" src="{$module_dir}/views/js/bootstrap-multiselect.js"></script> 	
-
+	<script type="text/javascript" src="{$module_dir}/views/js/bootstrap-multiselect.js"></script>
+	<script type="text/javascript" src="{$module_dir}/views/js/back.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#group-select').multiselect({
@@ -238,5 +238,19 @@
 				maxHeight: 200,
 				buttonWidth: '153px'
 			});
+		});
+		$(window).load(function(){
+			for (i = 0;document.querySelectorAll(".active > input:nth-child(1)")[i];i++) {
+				document.querySelectorAll(".active > input:nth-child(1)")[i].addEventListener("click",function () {
+					var c = this.parentElement.parentElement.parentElement.querySelectorAll("input,button,select");
+					for (b = 1;c[b];b++) {
+						if (!c[b].hasAttribute("disabled"))
+							c[b].setAttribute("disabled","disabled");
+						else
+							c[b].removeAttribute("disabled");
+					}
+				});
+				document.querySelectorAll(".active > input:nth-child(1)")[i].click();
+			}
 		});
 	</script>
