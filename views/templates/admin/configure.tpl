@@ -24,35 +24,10 @@
 *}
 
 <link rel="stylesheet" type="text/css" href="{$module_dir}/views/css/back.css">
-<script type="text/javascript" src="{$module_dir}/views/js/back.js"></script>
 
 <div class="panel">
-	<h3><i class="icon icon-credit-card"></i> {l s='Segmentation Retargeting Clients' mod='codecamp'}</h3>
-	<p>
-		<strong>{l s='ça avance super bien dis donc' mod='codecamp'}</strong><br />
-		{l s='Thanks to PrestaShop, now I have a code camp de merde.' mod='codecamp'}<br />
-		{l s='I can configure it using the following configuration form sauf que j\'ai pas envie de bosser.' mod='codecamp'}
-	</p>
-	<br />
-	<p>
-		{l s='This module will servir à rien!' mod='codecamp'}
-	</p>
-</div>
-
-<div class="panel">
-	<h3><i class="icon icon-tags"></i> {l s='Documentation' mod='codecamp'}</h3>
-	<p>
-		&raquo; {l s='You can get a PDF documentation to configure this module' mod='codecamp'} :
-		<ul>
-			<li><a href="#" target="http::/www.google.com">{l s='English' mod='codecamp'}</a></li>
-			<li><a href="#" target="http::/www.youtube.com">{l s='French' mod='codecamp'}</a></li>
-		</ul>
-	</p>
-</div>
-
-<div class="panel">
-	<h3><i class="icon icon-gear"></i> Control Panel</h3>
-	<form method="POST" action="">
+	<h3><i class="icon icon-cogs"></i> Settings</h3>
+	<form method="POST" action="" id="csvform">
 		<table>
 			<tr>
 				<td>
@@ -96,22 +71,12 @@
 					</span>
 				</td>
 				<td>
-					<div class="styled-select blue semi-square">
-						<div class="multiselect">
-							<div class="selectBox" onclick="showCheckboxes()">
-								<select>
-									<option>Selectionnez</option>
-								</select>
-								<div class="overSelect"></div>
-							</div>
-							<div id="checkboxes">
-								{foreach from=$groups item=group}
-									<label for="{$group.name}">
-										<input type="checkbox" id="{$group.name}" />{$group.name}
-									</label>
-								{/foreach}
-							</div>
-						</div>
+					<div>
+						<select multiple="multiple" name="group[]">
+							{foreach from=$groups item=group}
+								<option value="{$group.name}">{$group.name}</option>
+							{/foreach}
+						</select>
 					</div>
 				</td>
 			</tr>
@@ -130,13 +95,11 @@
 				</td>
 				<td>
 					<div>
-						<div class="styled-select blue semi-square">
-							<select>
-								{foreach from=$lang item=l}
-									<option>{$l.name}</option>
-								{/foreach}
-							</select>
-						</div>
+						<select multiple="multiple" name="lang[]">
+							{foreach from=$lang item=l}
+								<option value="{$l.name}">{$l.name}</option>
+							{/foreach}
+						</select>
 					</div>
 				</td>
 			</tr>
@@ -155,13 +118,11 @@
 				</td>
 				<td>
 					<div>
-						<div class="styled-select blue semi-square">
-							<select>
-								{foreach from=$curr item=c}
-									<option>{$c.name}</option>
-								{/foreach}
-							</select>
-						</div>
+						<select multiple="multiple" name="currency[]">
+							{foreach from=$curr item=c}
+								<option value="{$c.name}">{$c.name}</option>
+							{/foreach}
+						</select>
 					</div>
 				</td>
 			</tr>
@@ -180,13 +141,11 @@
 				</td>
 				<td>
 					<div>
-						<div class="styled-select blue semi-square">
-							<select>
-								{foreach from=$countries item=country}
-									<option>{$country.name}</option>
-								{/foreach}
-							</select>
-						</div>
+						<select multiple="multiple" name="country[]">
+							{foreach from=$countries item=country}
+								<option value="{$country.name}">{$country.name}</option>
+							{/foreach}
+						</select>
 					</div>
 				</td>
 			</tr>
@@ -227,13 +186,11 @@
 				</td>
 				<td>
 					<div>
-						<div class="styled-select blue semi-square">
-							<select>
-								{foreach from=$gender item=g}
-									<option>{$g.name}</option>
-								{/foreach}
-							</select>
-						</div>
+						<select multiple="multiple" name="gender[]">
+							{foreach from=$gender item=g}
+								<option value="{$g.name}">{$g.name}</option>
+							{/foreach}
+						</select>
 					</div>
 				</td>
 			</tr>
@@ -244,6 +201,9 @@
 			</button>
 		</div>
 	</form>
+	<div class="panel">
+		{$sql}
+	</div>
 </div>
 
 <div class="panel">

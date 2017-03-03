@@ -118,6 +118,7 @@ class Codecamp extends Module
             $select .= ', c.optin';
         }
 
+        $this->context->smarty->assign("sql", $select . ' ' . $from);
         if ($results = $db->ExecuteS($select . ' ' . $from))
         {
             $i = 0;
