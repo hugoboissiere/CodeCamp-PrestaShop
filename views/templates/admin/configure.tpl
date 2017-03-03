@@ -26,7 +26,6 @@
 <link rel="stylesheet" type="text/css" href="{$module_dir}/views/css/back.css">
 <link rel="stylesheet" type="text/css" href="{$module_dir}/views/css/bootstrap-multiselect.css">
 <script type="text/javascript" src="{$module_dir}/views/js/bootstrap-multiselect.js"></script>
-<script type="text/javascript" src="{$module_dir}/views/js/back.js"></script>
 
 <div class="panel">
 	<h3><i class="icon icon-cogs"></i> Settings</h3>
@@ -36,7 +35,7 @@
 			<table>
 				<tr>
 					<td>
-						<div class="active"><input type="checkbox" checked></div>
+						<div class="active"><input type="checkbox" class="normal" checked></div>
 					</td>
 					<td>
 						<p>Newsletter</p>
@@ -53,7 +52,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="active"><input type="checkbox" checked></div>
+						<div class="active"><input type="checkbox" class="normal" checked></div>
 					</td>
 					<td>
 						<p>Opt-in</p>
@@ -70,7 +69,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="active"><input type="checkbox" checked></div>
+						<div class="active"><input type="checkbox" class="normal" checked></div>
 					</td>
 					<td>
 						<p>Groupe Client</p>
@@ -96,7 +95,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="active"><input type="checkbox" checked></div>
+						<div class="active"><input type="checkbox" class="normal" checked></div>
 					</td>
 					<td>
 						<p>Langue</p>
@@ -122,7 +121,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="active"><input type="checkbox" checked></div>
+						<div class="active"><input type="checkbox" class="normal" checked></div>
 					</td>
 					<td>
 						<p>Devise</p>
@@ -148,7 +147,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="active"><input type="checkbox" checked></div>
+						<div class="active"><input type="checkbox" class="normal" checked></div>
 					</td>
 					<td>
 						<p>Pays De Livraison</p>
@@ -174,7 +173,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="active"><input type="checkbox" checked></div>
+						<div class="active"><input type="checkbox" class="normal" checked></div>
 					</td>
 					<td>
 						<p>Age</p>
@@ -191,8 +190,8 @@
 					<td>
 						<div>
 							<div>
-								<input type="date" name="date" class ="bday" placeholder="jj/mm/AAAA">
-								<input type="date" name="date" class ="bday" placeholder="jj/mm/AAAA">
+								<input type="number" name="date" class ="bday col-lg-3" placeholder="min">
+								<input type="number" name="date" class ="bday col-lg-3" placeholder="max">
 							</div>
 						</div>
 					</td>
