@@ -189,8 +189,8 @@
 					</td>
 					<td>
 						<div>
-							<input type="number" name="age" class ="bday">
-							<input type="number" name="age" class ="bday">
+							<input type="number" name="ageMin" class ="bday">
+							<input type="number" name="ageMax" class ="bday">
 						</div>
 					</td>
 				</tr>
