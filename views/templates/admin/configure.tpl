@@ -241,6 +241,18 @@
 <div class="panel">
 	<h3><i class="icon icon-th"></i> CSV results</h3>
 	<p>
-		{foreach from=$keys item=key}{$key.key};{/foreach}{"\n"}{foreach from=$results item=row}{foreach from=$row item=i}{$i};{/foreach}{"\n"}{/foreach}
+		<table id="preprint">
+			<tr>
+				{foreach from=$keys item=key}
+					<th>{$key.key}</th>
+				{/foreach}{"\n"}
+			</tr><br>
+			{foreach from=$results item=row}
+				<tr>
+					{foreach from=$row item=i}
+					<td>{$i}</td>
+				{/foreach}</tr>{"\n"}
+			{/foreach}
+		</table>
 	</p>
 </div>
