@@ -173,7 +173,3 @@ input[type="number"] {
 #preprint > tbody > tr > td:last-child {
 	border-right: none;
 }
-
-.panel {
-	overflow-x: auto;
-}
