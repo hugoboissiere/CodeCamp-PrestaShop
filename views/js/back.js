@@ -64,6 +64,39 @@ $(document).ready(function() {
 		maxHeight: 200,
 		buttonWidth: '153px'
 	});
+	$('#abort-category-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#abort-brand-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#abort-product-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#purchase-category-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#purchase-brand-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#purchase-product-select').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#payment').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	$('#delivery').multiselect({
+		maxHeight: 200,
+		buttonWidth: '153px'
+	});
+	if ( $('#no_command_date')[0].type != 'date' ) $('#no_command_date').datepicker();
 });
 
 $(window).load(function(){show();});
