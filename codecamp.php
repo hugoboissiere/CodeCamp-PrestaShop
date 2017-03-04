@@ -93,7 +93,7 @@ class Codecamp extends Module
 
         $db = Db::getInstance(_PS_USE_SQL_SLAVE_);
 
-        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset($_POST["NEWSLETTER_MODE"]) ? ', c.newsletter' : '') . (isset($_POST["OPT_MODE"]) ? ', c.optin' : '') . (isset($_POST["GRPCLIENT_MODE"]) ? ', grl.name as grp' : '');
+        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset($_POST["NEWSLETTER_MODE"]) ? ', c.newsletter' : '') . (isset($_POST["OPT_MODE"]) ? ', c.optin' : '') . (isset($_POST["GRPCLIENT_MODE"]) ? ', grl.name as grp' : '') . (isset($_POST["AGE_MODE"]) ? ', TRUNCATE(DATEDIFF(NOW(), c.birthday) / 365.25, 0) as age' : '');
 
         $from = 'FROM ' . _DB_PREFIX_ . 'address as a
                 LEFT JOIN ' . _DB_PREFIX_ . 'customer as c
@@ -112,7 +112,19 @@ class Codecamp extends Module
                     ON cg.id_customer = c.id_customer
                 LEFT JOIN ' . _DB_PREFIX_ . 'group_lang as grl
                     ON grl.id_group = cg.id_group AND grl.id_lang = ' . (int)$cookie->id_lang . '
-                WHERE true ' . (isset($_POST["NEWSLETTER_MODE"]) ? 'AND c.newsletter = ' . (int)$_POST["NEWSLETTER_MODE"] : '') . (isset($_POST["OPT_MODE"]) ? ' AND c.optin = ' . (int)$_POST["OPT_MODE"] : '');
+                WHERE true ' . (isset($_POST["NEWSLETTER_MODE"])
+                                    ? 'AND c.newsletter = ' . (int)$_POST["NEWSLETTER_MODE"]
+                                    : '')
+                             . (isset($_POST["OPT_MODE"])
+                                    ? ' AND c.optin = ' . (int)$_POST["OPT_MODE"]
+                                    : '')
+                             . (isset($_POST["AGE_MODE"]) && $_POST["AGE_MODE"]
+                                    ? ' AND (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMin"] . '
+                                        AND (DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMax"]
+                                    : (isset($_POST["AGE_MODE"])
+                                        ? ' AND ((DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMin"] . '
+                                            OR   (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMax"] . ')'
+                                        : ''));
 
         if (isset($_POST["group"]) && is_array($_POST["group"]))
         {
@@ -171,6 +183,21 @@ class Codecamp extends Module
                     $from .= ' AND p.name <> "' . pSQL($value) . '"';
             }
             if ($_POST["PDL_MODE"])
+                $from .= ')';
+        }
+
+        if (isset($_POST["gender"]) && is_array($_POST["gender"]))
+        {
+            if ($_POST["SEXE_MODE"])
+                $from .= ' AND (false';
+            foreach ($_POST["gender"] as $value)
+            {
+                if ($_POST["SEXE_MODE"])
+                    $from .= ' OR g.name = "' . pSQL($value) . '"';
+                else
+                    $from .= ' AND g.name <> "' . pSQL($value) . '"';
+            }
+            if ($_POST["SEXE_MODE"])
                 $from .= ')';
         }
 

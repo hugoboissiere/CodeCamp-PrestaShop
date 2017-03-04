@@ -166,54 +166,54 @@
 								<select multiple="multiple" name="country[]" id="country-select">
 									{foreach from=$countries item=country}
 									<option value="{$country.name}">{$country.name}</option>
-									{/foreach}
-								</select>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="active"><input type="checkbox" checked></div>
-						</td>
-						<td>
-							<p>Age</p>
-						</td>
-						<td>
-							<span class="switch prestashop-switch fixed-width-lg">
-								<input name="AGE_MODE" id="AGE_MODE_on" value="1" type="radio">
-								<label for="AGE_MODE_on">Inclure</label>
-								<input name="AGE_MODE" id="AGE_MODE_off" value="" checked="checked" type="radio">
-								<label for="AGE_MODE_off">Exclure</label>
-								<a class="slide-button btn"></a>
-							</span>
-						</td>
-						<td>
-							<div>
-								<input type="number" name="age" class ="bday">
-								<input type="number" name="age" class ="bday">
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="active"><input type="checkbox" checked></div>
-						</td>
-						<td>
-							<p>Sexe</p>
-						</td>
-						<td>
-							<span class="switch prestashop-switch fixed-width-lg">
-								<input name="SEXE_MODE" id="SEXE_MODE_on" value="1" type="radio">
-								<label for="SEXE_MODE_on">Inclure</label>
-								<input name="SEXE_MODE" id="SEXE_MODE_off" value="" checked="checked" type="radio">
-								<label for="SEXE_MODE_off">Exclure</label>
-								<a class="slide-button btn"></a>
-							</span>
-						</td>
-						<td>
-							<div>
-								<select multiple="multiple" name="gender[]" id="gender-select">
-									{foreach from=$gender item=g}
+								{/foreach}
+							</select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Age</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="AGE_MODE" id="AGE_MODE_on" value="1" type="radio">
+							<label for="AGE_MODE_on">Inclure</label>
+							<input name="AGE_MODE" id="AGE_MODE_off" value="" checked="checked" type="radio">
+							<label for="AGE_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
+						<div>
+							<input type="number" name="ageMin" class ="bday">
+							<input type="number" name="ageMax" class ="bday">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="active"><input type="checkbox" checked></div>
+					</td>
+					<td>
+						<p>Sexe</p>
+					</td>
+					<td>
+						<span class="switch prestashop-switch fixed-width-lg">
+							<input name="SEXE_MODE" id="SEXE_MODE_on" value="1" type="radio">
+							<label for="SEXE_MODE_on">Inclure</label>
+							<input name="SEXE_MODE" id="SEXE_MODE_off" value="" checked="checked" type="radio">
+							<label for="SEXE_MODE_off">Exclure</label>
+							<a class="slide-button btn"></a>
+						</span>
+					</td>
+					<td>
+						<div>
+							<select multiple="multiple" name="gender[]" id="gender-select">
+								{foreach from=$gender item=g}
 									<option value="{$g.name}">{$g.name}</option>
 									{/foreach}
 								</select>
