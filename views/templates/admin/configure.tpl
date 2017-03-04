@@ -246,13 +246,14 @@
 			<tr>
 				{foreach from=$keys item=key}
 					<th>{$key.key}</th>
-				{/foreach}{"\n"}
-			</tr><br>
+				{/foreach}
+			</tr>
 			{foreach from=$results item=row}
 				<tr>
 					{foreach from=$row item=i}
-					<td>{$i}</td>
-				{/foreach}</tr>{"\n"}
+						<td>{$i}</td>
+					{/foreach}
+				</tr>
 			{/foreach}
 		</table>
 	</p>
