@@ -124,10 +124,7 @@ class Codecamp extends Module
                                     : (isset($_POST["AGE_MODE"])
                                         ? ' AND ((DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMin"] . '
                                             OR   (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMax"] . ')'
-                                        : ''))
-                             . (isset($_POST["SEXE_MODE"])
-                                    ? ' AND g.name = ' . (int)$_POST["SEXE_MODE"]
-                                    : '');
+                                        : ''));
 
         if (isset($_POST["group"]) && is_array($_POST["group"]))
         {
@@ -186,6 +183,21 @@ class Codecamp extends Module
                     $from .= ' AND p.name <> "' . pSQL($value) . '"';
             }
             if ($_POST["PDL_MODE"])
+                $from .= ')';
+        }
+
+        if (isset($_POST["gender"]) && is_array($_POST["gender"]))
+        {
+            if ($_POST["SEXE_MODE"])
+                $from .= ' AND (false';
+            foreach ($_POST["gender"] as $value)
+            {
+                if ($_POST["SEXE_MODE"])
+                    $from .= ' OR g.name = "' . pSQL($value) . '"';
+                else
+                    $from .= ' AND g.name <> "' . pSQL($value) . '"';
+            }
+            if ($_POST["SEXE_MODE"])
                 $from .= ')';
         }
 
