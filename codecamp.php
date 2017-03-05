@@ -93,7 +93,7 @@ class Codecamp extends Module
 
         $db = Db::getInstance(_PS_USE_SQL_SLAVE_);
 
-        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset($_POST["NEWSLETTER_MODE"]) ? ', c.newsletter' : '') . (isset($_POST["OPT_MODE"]) ? ', c.optin' : '') . (isset($_POST["GRPCLIENT_MODE"]) ? ', grl.name as grp' : '') . (isset($_POST["AGE_MODE"]) ? ', TRUNCATE(DATEDIFF(NOW(), c.birthday) / 365.25, 0) as age' : '') . (isset($_POST["NO_COMMAND"]) ? ', MIN(o.date_add) as first_order, MAX(o.date_add) as last_order' : '');
+        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset($_POST["NEWSLETTER_MODE"]) ? ', c.newsletter' : '') . (isset($_POST["OPT_MODE"]) ? ', c.optin' : '') . (isset($_POST["GRPCLIENT_MODE"]) ? ', grl.name as grp' : '') . (isset($_POST["AGE_MODE"]) ? ', TRUNCATE(DATEDIFF(NOW(), c.birthday) / 365.25, 0) as age' : '') . (isset($_POST["NO_COMMAND"]) ? ', MIN(o.date_add) as first_order, MAX(o.date_add) as last_order' : '') . (isset($_POST["NUMBER_OF_COMMANDS"]) ? ', COUNT(o.date_add) as number_of_orders' : '');
 
         $from = 'FROM ' . _DB_PREFIX_ . 'address as a
                 LEFT JOIN ' . _DB_PREFIX_ . 'customer as c
@@ -112,27 +112,35 @@ class Codecamp extends Module
                     ON cg.id_customer = c.id_customer
                 LEFT JOIN ' . _DB_PREFIX_ . 'group_lang as grl
                     ON grl.id_group = cg.id_group AND grl.id_lang = ' . (int)$cookie->id_lang .
-                (isset($_POST["NO_COMMAND"])
+                (isset($_POST["NO_COMMAND"]) || isset($_POST["NUMBER_OF_COMMANDS"])
                     ? ' LEFT JOIN ' . _DB_PREFIX_ . 'orders as o
                             ON o.id_customer = c.id_customer'
                     : '') . '
-                WHERE true ' . (isset($_POST["NEWSLETTER_MODE"])
-                                    ? 'AND c.newsletter = ' . (int)$_POST["NEWSLETTER_MODE"]
+                GROUP BY c.id_customer
+                HAVING true ' . (isset($_POST["NEWSLETTER_MODE"])
+                                    ? ' AND c.newsletter = ' . (int)$_POST["NEWSLETTER_MODE"]
                                     : '')
                              . (isset($_POST["OPT_MODE"])
-                                    ? 'AND c.optin = ' . (int)$_POST["OPT_MODE"]
+                                    ? ' AND c.optin = ' . (int)$_POST["OPT_MODE"]
                                     : '')
                              . (isset($_POST["AGE_MODE"]) && $_POST["AGE_MODE"]
-                                    ? 'AND (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMin"] . '
-                                       AND (DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMax"]
+                                    ? ' AND (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMin"] . '
+                                        AND (DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMax"]
                                     : (isset($_POST["AGE_MODE"])
-                                        ? 'AND ((DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMin"] . '
-                                           OR   (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMax"] . ')'
+                                        ? ' AND ((DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMin"] . '
+                                            OR   (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMax"] . ')'
                                         : ''))
                              . (isset($_POST["NO_COMMAND"]) && $_POST["NO_COMMAND"]
-                                    ? 'AND o.date_add > "' . pSQL($_POST["amountMin"]) . '"'
+                                    ? ' AND o.date_add > "' . pSQL($_POST["amountMin"]) . '"'
                                     : (isset($_POST["NO_COMMAND"])
-                                        ? 'AND o.date_add < "' . pSQL($_POST["amountMin"]) . '"'
+                                        ? ' AND o.date_add < "' . pSQL($_POST["amountMin"]) . '"'
+                                        : ''))
+                             . (isset($_POST["NUMBER_OF_COMMANDS"]) && $_POST["NUMBER_OF_COMMANDS"]
+                                    ? ' AND number_of_orders >= ' . (int)$_POST["numberOfCommandsMin"] . '
+                                        AND number_of_orders <= ' . (int)$_POST["numberOfCommandsMax"]
+                                    : (isset($_POST["NUMBER_OF_COMMANDS"])
+                                        ? ' AND (number_of_orders < ' . (int)$_POST["numberOfCommandsMin"] . '
+                                            OR   number_of_orders > ' . (int)$_POST["numberOfCommandsMax"] . ')'
                                         : ''));
 
         if (isset($_POST["group"]) && is_array($_POST["group"]))
@@ -210,7 +218,7 @@ class Codecamp extends Module
                 $from .= ')';
         }
 
-        $sql = $select . ' ' . $from . ' GROUP by c.id_customer';
+        $sql = $select . ' ' . $from;
 
         $this->context->smarty->assign("sql", $sql);
 
@@ -282,7 +290,22 @@ class Codecamp extends Module
 
         if ($_POST["submit"] == 2)
         {
-            header('Location: ' . $this->_path . 'views/templates/admin/results.php');
+            header('Content-type: text/csv');
+            header('Content-Disposition: attachment; filename="results.csv"');
+
+            foreach ($keys as $key)
+            {
+                echo $key["key"] . ";";
+            }
+            echo "\n";
+            foreach ($results as $row)
+            {
+                foreach ($row as $cell)
+                {
+                    echo $cell . ";";
+                }
+                echo "\n";
+            }
             exit();
         }
 
