@@ -93,7 +93,7 @@ class Codecamp extends Module
 
         $db = Db::getInstance(_PS_USE_SQL_SLAVE_);
 
-        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset($_POST["NEWSLETTER_MODE"]) ? ', c.newsletter' : '') . (isset($_POST["OPT_MODE"]) ? ', c.optin' : '') . (isset($_POST["GRPCLIENT_MODE"]) ? ', grl.name as grp' : '') . (isset($_POST["AGE_MODE"]) ? ', TRUNCATE(DATEDIFF(NOW(), c.birthday) / 365.25, 0) as age' : '') . (isset($_POST["NO_COMMAND"]) ? ', MIN(o.date_add) as first_order, MAX(o.date_add) as last_order' : '') . (isset($_POST["NUMBER_OF_COMMANDS"]) ? ', COUNT(o.date_add) as number_of_orders' : '') . (isset($_POST["DELIVERY"]) ? ', cl.delay as carrier' : '');
+        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset($_POST["NEWSLETTER_MODE"]) ? ', c.newsletter' : '') . (isset($_POST["OPT_MODE"]) ? ', c.optin' : '') . (isset($_POST["GRPCLIENT_MODE"]) ? ', grl.name as grp' : '') . (isset($_POST["AGE_MODE"]) ? ', TRUNCATE(DATEDIFF(NOW(), c.birthday) / 365.25, 0) as age' : '') . (isset($_POST["NO_COMMAND"]) ? ', MIN(o.date_add) as first_order, MAX(o.date_add) as last_order' : '') . (isset($_POST["NUMBER_OF_COMMANDS"]) ? ', COUNT(o.date_add) as number_of_orders' : '') . (isset($_POST["DELIVERY"]) ? ', cl.delay as carrier' : '') . (isset($_POST["PAYMENT"]) ? ', o.module' : '');
 
         $from = 'FROM ' . _DB_PREFIX_ . 'address as a
                 LEFT JOIN ' . _DB_PREFIX_ . 'customer as c
@@ -112,13 +112,17 @@ class Codecamp extends Module
                     ON cg.id_customer = c.id_customer
                 LEFT JOIN ' . _DB_PREFIX_ . 'group_lang as grl
                     ON grl.id_group = cg.id_group AND grl.id_lang = ' . (int)$cookie->id_lang .
-                (isset($_POST["NO_COMMAND"]) || isset($_POST["NUMBER_OF_COMMANDS"]) || isset($_POST["DELIVERY"])
+                (isset($_POST["NO_COMMAND"]) || isset($_POST["NUMBER_OF_COMMANDS"]) || isset($_POST["DELIVERY"]) || isset($_POST["PAYMENT"])
                     ? ' LEFT JOIN ' . _DB_PREFIX_ . 'orders as o
                             ON o.id_customer = c.id_customer'
                     : '') .
                 (isset($_POST["DELIVERY"])
                     ? ' LEFT JOIN ' . _DB_PREFIX_ . 'carrier_lang as cl
                             ON cl.id_carrier = o.id_carrier AND cl.id_lang = ' . (int)$cookie->id_lang
+                    : '') .
+                (isset($_POST["PAYMENT"])
+                    ? ' LEFT JOIN ' . _DB_PREFIX_ . 'module as m
+                            ON m.name = o.module'
                     : '') . '
                 GROUP BY c.id_customer
                 HAVING true ' . (isset($_POST["NEWSLETTER_MODE"])
@@ -237,6 +241,21 @@ class Codecamp extends Module
                 $from .= ')';
         }
 
+        if (isset($_POST["payment"]) && is_array($_POST["payment"]))
+        {
+            if ($_POST["PAYMENT"])
+                $from .= ' AND (false';
+            foreach ($_POST["payment"] as $value)
+            {
+                if ($_POST["PAYMENT"])
+                    $from .= ' OR o.module = "' . pSQL($value) . '"';
+                else
+                    $from .= ' AND o.module <> "' . pSQL($value) . '"';
+            }
+            if ($_POST["PAYMENT"])
+                $from .= ')';
+        }
+
         $sql = $select . ' ' . $from;
 
         $this->context->smarty->assign("sql", $sql);
@@ -300,6 +319,10 @@ class Codecamp extends Module
         if (!($carriers = $db->ExecuteS($sql_carriers)))
             $carriers = "Error";
 
+        $sql_payment = 'SELECT m.name FROM ' . _DB_PREFIX_ . 'module_country as mc LEFT JOIN ' . _DB_PREFIX_ . 'module as m ON m.id_module = mc.id_module ORDER BY m.name';
+        if (!($payment = $db->ExecuteS($sql_payment)))
+            $payment = "Error";
+
         $this->context->smarty->assign('results', $arr);
         $this->context->smarty->assign('keys', $keys);
         $this->context->smarty->assign('groups', $grp);
@@ -311,6 +334,7 @@ class Codecamp extends Module
         $this->context->smarty->assign('manufacturer', $manufacturer);
         $this->context->smarty->assign('products', $products);
         $this->context->smarty->assign('carriers', $carriers);
+        $this->context->smarty->assign('payment', $payment);
 
         if ($_POST["submit"] == 2)
         {

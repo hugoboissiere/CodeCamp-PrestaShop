@@ -497,17 +497,17 @@
 					<td>
 						<span class="switch prestashop-switch fixed-width-lg">
 							<input name="PAYMENT" id="PAYMENT_on" value="1" type="radio">
-							<label for="PAYMENT_on">Yes</label>
+							<label for="PAYMENT_on">Inclure</label>
 							<input name="PAYMENT" id="PAYMENT_on" value="" checked="checked" type="radio">
-							<label for="PAYMENT_on">No</label>
+							<label for="PAYMENT_on">Exclure</label>
 							<a class="slide-button btn"></a>
 						</span>
 					</td>
 					<td>
 						<div>
-							<select multiple="multiple" name="group[]" id="payment">
-								{foreach from=$groups item=group}
-								<option value="{$group.name}">{$group.name}</option>
+							<select multiple="multiple" name="payment[]" id="payment">
+								{foreach from=$payment item=p}
+								<option value="{$p.name}">{$p.name}</option>
 								{/foreach}
 							</select>
 						</div>
