@@ -189,8 +189,8 @@
 						</td>
 						<td>
 							<div>
-								<input type="number" name="ageMin" min="1" max="99" class ="bday">
-								<input type="number" name="ageMax" min="1" max="99" class ="bday">
+								<input type="number" name="ageMin" min="1" max="99" class="bday">
+								<input type="number" name="ageMax" min="1" max="99" class="bday">
 							</div>
 						</td>
 					</tr>
@@ -243,9 +243,9 @@
 						</td>
 						<td>
 							<div>
-								<select multiple="multiple" name="group[]" id="abort-category-select">
-									{foreach from=$groups item=group}
-									<option value="{$group.name}">{$group.name}</option>
+								<select multiple="multiple" name="category[]" id="abort-category-select">
+									{foreach from=$categories item=category}
+									<option value="{$category.name}">{$category.name}</option>
 									{/foreach}
 								</select>
 							</div>
@@ -269,9 +269,9 @@
 						</td>
 						<td>
 							<div>
-								<select multiple="multiple" name="group[]" id="abort-brand-select">
-									{foreach from=$groups item=group}
-									<option value="{$group.name}">{$group.name}</option>
+								<select multiple="multiple" name="manufacturer[]" id="abort-brand-select">
+									{foreach from=$manufacturer item=man}
+									<option value="{$man.name}">{$man.name}</option>
 									{/foreach}
 								</select>
 							</div>
@@ -295,9 +295,9 @@
 						</td>
 						<td>
 							<div>
-								<select multiple="multiple" name="group[]" id="abort-product-select">
-									{foreach from=$groups item=group}
-									<option value="{$group.name}">{$group.name}</option>
+								<select multiple="multiple" name="products[]" id="abort-product-select">
+									{foreach from=$products item=product}
+									<option value="{$product.name}">{$product.name}</option>
 									{/foreach}
 								</select>
 							</div>
@@ -321,8 +321,8 @@
 						</td>
 						<td>
 							<div>
-								<input type="number" name="abortAmountMin" class ="bday">
-								<input type="number" name="abortAmountMax" class ="bday">
+								<input type="number" name="abortAmountMin" min="0" class="bday">
+								<input type="number" name="abortAmountMax" min="0" class="bday">
 							</div>
 						</td>
 					</tr>
@@ -349,7 +349,7 @@
 						</td>
 						<td>
 							<div>
-								<input type="date" name="amountMin" id="no_command_date" class ="bday">
+								<input type="date" name="amountMin" id="no_command_date" class="bday">
 							</div>
 						</td>
 					</tr>
@@ -371,8 +371,8 @@
 						</td>
 						<td>
 							<div>
-								<input type="number" name="numberOfCommandsMin" class ="bday">
-								<input type="number" name="numberOfCommandsMax" class ="bday">
+								<input type="number" name="numberOfCommandsMin" min="0" class="bday">
+								<input type="number" name="numberOfCommandsMax" min="0" class="bday">
 							</div>
 						</td>
 					</tr>
@@ -399,9 +399,9 @@
 						</td>
 						<td>
 							<div>
-								<select multiple="multiple" name="group[]" id="purchase-category-select">
-									{foreach from=$groups item=group}
-									<option value="{$group.name}">{$group.name}</option>
+								<select multiple="multiple" name="purchase_cat[]" id="purchase-category-select">
+									{foreach from=$categories item=category}
+									<option value="{$category.name}">{$category.name}</option>
 									{/foreach}
 								</select>
 							</div>
@@ -425,9 +425,9 @@
 						</td>
 						<td>
 							<div>
-								<select multiple="multiple" name="group[]" id="purchase-brand-select">
-									{foreach from=$groups item=group}
-									<option value="{$group.name}">{$group.name}</option>
+								<select multiple="multiple" name="purchase_man[]" id="purchase-brand-select">
+									{foreach from=$manufacturer item=man}
+									<option value="{$man.name}">{$man.name}</option>
 									{/foreach}
 								</select>
 							</div>
@@ -451,9 +451,9 @@
 						</td>
 						<td>
 							<div>
-								<select multiple="multiple" name="group[]" id="purchase-product-select">
-									{foreach from=$groups item=group}
-									<option value="{$group.name}">{$group.name}</option>
+								<select multiple="multiple" name="purchase_product[]" id="purchase-product-select">
+									{foreach from=$products item=product}
+									<option value="{$product.name}">{$product.name}</option>
 									{/foreach}
 								</select>
 							</div>
@@ -477,8 +477,8 @@
 						</td>
 						<td>
 							<div>
-								<input type="number" name="purchaseAmountMin" class ="bday">
-								<input type="number" name="purchaseAmountMax" class ="bday">
+								<input type="number" name="purchaseAmountMin" min="0" class="bday">
+								<input type="number" name="purchaseAmountMax" min="0" class="bday">
 							</div>
 						</td>
 					</tr>

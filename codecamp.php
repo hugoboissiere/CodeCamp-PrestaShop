@@ -93,7 +93,7 @@ class Codecamp extends Module
 
         $db = Db::getInstance(_PS_USE_SQL_SLAVE_);
 
-        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset($_POST["NEWSLETTER_MODE"]) ? ', c.newsletter' : '') . (isset($_POST["OPT_MODE"]) ? ', c.optin' : '') . (isset($_POST["GRPCLIENT_MODE"]) ? ', grl.name as grp' : '') . (isset($_POST["AGE_MODE"]) ? ', TRUNCATE(DATEDIFF(NOW(), c.birthday) / 365.25, 0) as age' : '');
+        $select = 'SELECT a.firstname, a.lastname, c.email, a.phone, a.address1, a.address2, a.postcode, a.city, p.name as country, l.name as lang, d.name as currency, g.name as gender' . (isset(Tools::getValue("NEWSLETTER_MODE")) ? ', c.newsletter' : '') . (isset(Tools::getValue("OPT_MODE")) ? ', c.optin' : '') . (isset(Tools::getValue("GRPCLIENT_MODE")) ? ', grl.name as grp' : '') . (isset(Tools::getValue("AGE_MODE")) ? ', TRUNCATE(DATEDIFF(NOW(), c.birthday) / 365.25, 0) as age' : '');
 
         $from = 'FROM ' . _DB_PREFIX_ . 'address as a
                 LEFT JOIN ' . _DB_PREFIX_ . 'customer as c
@@ -112,92 +112,92 @@ class Codecamp extends Module
                     ON cg.id_customer = c.id_customer
                 LEFT JOIN ' . _DB_PREFIX_ . 'group_lang as grl
                     ON grl.id_group = cg.id_group AND grl.id_lang = ' . (int)$cookie->id_lang . '
-                WHERE true ' . (isset($_POST["NEWSLETTER_MODE"])
-                                    ? 'AND c.newsletter = ' . (int)$_POST["NEWSLETTER_MODE"]
+                WHERE true ' . (isset(Tools::getValue("NEWSLETTER_MODE"))
+                                    ? 'AND c.newsletter = ' . (int)Tools::getValue("NEWSLETTER_MODE")
                                     : '')
-                             . (isset($_POST["OPT_MODE"])
-                                    ? ' AND c.optin = ' . (int)$_POST["OPT_MODE"]
+                             . (isset(Tools::getValue("OPT_MODE"))
+                                    ? ' AND c.optin = ' . (int)Tools::getValue("OPT_MODE")
                                     : '')
-                             . (isset($_POST["AGE_MODE"]) && $_POST["AGE_MODE"]
-                                    ? ' AND (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMin"] . '
-                                        AND (DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMax"]
-                                    : (isset($_POST["AGE_MODE"])
-                                        ? ' AND ((DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)$_POST["ageMin"] . '
-                                            OR   (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)$_POST["ageMax"] . ')'
+                             . (isset(Tools::getValue("AGE_MODE")) && Tools::getValue("AGE_MODE")
+                                    ? ' AND (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)Tools::getValue("ageMin") . '
+                                        AND (DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)Tools::getValue("ageMax")
+                                    : (isset(Tools::getValue("AGE_MODE"))
+                                        ? ' AND ((DATEDIFF(NOW(), c.birthday) / 365.25) < ' . (int)Tools::getValue("ageMin") . '
+                                            OR   (DATEDIFF(NOW(), c.birthday) / 365.25) > ' . (int)Tools::getValue("ageMax") . ')'
                                         : ''));
 
-        if (isset($_POST["group"]) && is_array($_POST["group"]))
+        if (isset(Tools::getValue("group")) && is_array(Tools::getValue("group")))
         {
-            if ($_POST["GRPCLIENT_MODE"])
+            if (Tools::getValue("GRPCLIENT_MODE"))
                 $from .= ' AND (false';
-            foreach ($_POST["group"] as $value)
+            foreach (Tools::getValue("group") as $value)
             {
-                if ($_POST["GRPCLIENT_MODE"])
+                if (Tools::getValue("GRPCLIENT_MODE"))
                     $from .= ' OR grl.name = "' . pSQL($value) . '"';
                 else
                     $from .= ' AND grl.name <> "' . pSQL($value) . '"';
             }
-            if ($_POST["GRPCLIENT_MODE"])
+            if (Tools::getValue("GRPCLIENT_MODE"))
                 $from .= ')';
         }
 
-        if (isset($_POST["lang"]) && is_array($_POST["lang"]))
+        if (isset(Tools::getValue("lang")) && is_array(Tools::getValue("lang")))
         {
-            if ($_POST["LANGUE_MODE"])
+            if (Tools::getValue("LANGUE_MODE"))
                 $from .= ' AND (false';
-            foreach ($_POST["lang"] as $value)
+            foreach (Tools::getValue("lang") as $value)
             {
-                if ($_POST["LANGUE_MODE"])
+                if (Tools::getValue("LANGUE_MODE"))
                     $from .= ' OR l.name = "' . pSQL($value) . '"';
                 else
                     $from .= ' AND l.name <> "' . pSQL($value) . '"';
             }
-            if ($_POST["LANGUE_MODE"])
+            if (Tools::getValue("LANGUE_MODE"))
                 $from .= ')';
         }
 
-        if (isset($_POST["currency"]) && is_array($_POST["currency"]))
+        if (isset(Tools::getValue("currency")) && is_array(Tools::getValue("currency")))
         {
-            if ($_POST["DEVISE_MODE"])
+            if (Tools::getValue("DEVISE_MODE"))
                 $from .= ' AND (false';
-            foreach ($_POST["currency"] as $value)
+            foreach (Tools::getValue("currency") as $value)
             {
-                if ($_POST["DEVISE_MODE"])
+                if (Tools::getValue("DEVISE_MODE"))
                     $from .= ' OR d.name = "' . pSQL($value) . '"';
                 else
                     $from .= ' AND d.name <> "' . pSQL($value) . '"';
             }
-            if ($_POST["DEVISE_MODE"])
+            if (Tools::getValue("DEVISE_MODE"))
                 $from .= ')';
         }
 
-        if (isset($_POST["country"]) && is_array($_POST["country"]))
+        if (isset(Tools::getValue("country")) && is_array(Tools::getValue("country")))
         {
-            if ($_POST["PDL_MODE"])
+            if (Tools::getValue("PDL_MODE"))
                 $from .= ' AND (false';
-            foreach ($_POST["country"] as $value)
+            foreach (Tools::getValue("country") as $value)
             {
-                if ($_POST["PDL_MODE"])
+                if (Tools::getValue("PDL_MODE"))
                     $from .= ' OR p.name = "' . pSQL($value) . '"';
                 else
                     $from .= ' AND p.name <> "' . pSQL($value) . '"';
             }
-            if ($_POST["PDL_MODE"])
+            if (Tools::getValue("PDL_MODE"))
                 $from .= ')';
         }
 
-        if (isset($_POST["gender"]) && is_array($_POST["gender"]))
+        if (isset(Tools::getValue("gender")) && is_array(Tools::getValue("gender")))
         {
-            if ($_POST["SEXE_MODE"])
+            if (Tools::getValue("SEXE_MODE"))
                 $from .= ' AND (false';
-            foreach ($_POST["gender"] as $value)
+            foreach (Tools::getValue("gender") as $value)
             {
-                if ($_POST["SEXE_MODE"])
+                if (Tools::getValue("SEXE_MODE"))
                     $from .= ' OR g.name = "' . pSQL($value) . '"';
                 else
                     $from .= ' AND g.name <> "' . pSQL($value) . '"';
             }
-            if ($_POST["SEXE_MODE"])
+            if (Tools::getValue("SEXE_MODE"))
                 $from .= ')';
         }
 
@@ -246,6 +246,18 @@ class Codecamp extends Module
         if (!($gender = $db->ExecuteS($sql_gender)))
             $gender = "Error";
 
+        $sql_categories = 'SELECT name FROM ' . _DB_PREFIX_ . 'category_lang WHERE id_lang = ' . (int)$cookie->id_lang . ' AND id_category > 1 ORDER BY name';
+        if (!($categories = $db->ExecuteS($sql_categories)))
+            $categories = "Error";
+
+        $sql_manufacturer = 'SELECT name FROM ' . _DB_PREFIX_ . 'manufacturer ORDER BY name';
+        if (!($manufacturer = $db->ExecuteS($sql_manufacturer)))
+            $manufacturer = "Error";
+
+        $sql_products = 'SELECT name FROM ' . _DB_PREFIX_ . 'product_lang ORDER BY name';
+        if (!($products = $db->ExecuteS($sql_products)))
+            $products = "Error";
+
         $this->context->smarty->assign('results', $arr);
         $this->context->smarty->assign('keys', $keys);
         $this->context->smarty->assign('groups', $grp);
@@ -253,6 +265,9 @@ class Codecamp extends Module
         $this->context->smarty->assign('curr', $curr);
         $this->context->smarty->assign('countries', $country);
         $this->context->smarty->assign('gender', $gender);
+        $this->context->smarty->assign('categories', $categories);
+        $this->context->smarty->assign('manufacturer', $manufacturer);
+        $this->context->smarty->assign('products', $products);
 
         $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 
