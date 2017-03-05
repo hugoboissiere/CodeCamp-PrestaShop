@@ -531,9 +531,9 @@
 					</td>
 					<td>
 						<div>
-							<select multiple="multiple" name="group[]" id="delivery">
-								{foreach from=$groups item=group}
-								<option value="{$group.name}">{$group.name}</option>
+							<select multiple="multiple" name="carrier[]" id="delivery">
+								{foreach from=$carriers item=carrier}
+								<option value="{$carrier.name}">{$carrier.name}</option>
 								{/foreach}
 							</select>
 						</div>
