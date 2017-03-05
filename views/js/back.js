@@ -29,7 +29,6 @@
 function show() {
 	var a = document.querySelectorAll(".active > input:nth-child(1)");
 	for (i = 0;a[i];i++) {
-		console.log(i);
 		document.querySelectorAll(".active > input:nth-child(1)")[i].addEventListener("click",function () {
 			var c = this.parentElement.parentElement.parentElement.querySelectorAll("input,button,select");
 			for (b = 1;c[b];b++) {
